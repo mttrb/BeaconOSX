@@ -12,9 +12,17 @@
 
 #import "BLCBeaconAdvertisementData.h"
 
-@interface BLCAppDelegate () <CBPeripheralManagerDelegate>
+@interface BLCAppDelegate () <CBPeripheralManagerDelegate, NSTextFieldDelegate>
 
 @property (nonatomic,strong) CBPeripheralManager *manager;
+
+@property (weak) IBOutlet NSButton  *startbutton;
+@property (weak) IBOutlet NSTextField *uuidTextField;
+@property (weak) IBOutlet NSTextField *majorValueTextField;
+@property (weak) IBOutlet NSTextField *minorValueTextField;
+@property (weak) IBOutlet NSTextField *measuredPowerTextField;
+
+- (IBAction)startButtonTapped:(NSButton*)advertisingButton;
 
 @end
 
@@ -24,22 +32,56 @@
     
     _manager = [[CBPeripheralManager alloc] initWithDelegate:self
                                                        queue:nil];
+    [self.startbutton setEnabled:NO];
 }
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
     
     if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
+        [self.startbutton setEnabled:YES];
+        [self.uuidTextField setEnabled:YES];
+        [self.majorValueTextField setEnabled:YES];
+        [self.minorValueTextField setEnabled:YES];
+        [self.measuredPowerTextField setEnabled:YES];
         
-        NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:@"A6C4C5FA-A8DD-4BA1-B9A8-A240584F02D3"];
+        [self.startbutton setTarget:self];
+        [self.startbutton setAction:@selector(startButtonTapped:)];
+        
+        self.uuidTextField.delegate = self;
+    }
+}
+
+- (IBAction)startButtonTapped:(NSButton*)advertisingButton{
+    if (_manager.isAdvertising) {
+        [_manager stopAdvertising];
+        [advertisingButton setTitle:@"startAdvertising"];
+        [self.uuidTextField setEnabled:YES];
+        [self.majorValueTextField setEnabled:YES];
+        [self.minorValueTextField setEnabled:YES];
+        [self.measuredPowerTextField setEnabled:YES];
+    } else {
+        NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[self.uuidTextField stringValue]];
         
         BLCBeaconAdvertisementData *beaconData = [[BLCBeaconAdvertisementData alloc] initWithProximityUUID:proximityUUID
-                                                                                                     major:5
-                                                                                                     minor:5000
-                                                                                             measuredPower:-59];
-
+                                                                                                     major:self.majorValueTextField.integerValue
+                                                                                                     minor:self.minorValueTextField.integerValue
+                                                                                             measuredPower:self.measuredPowerTextField.integerValue];
+        
         
         [_manager startAdvertising:beaconData.beaconAdvertisement];
+        [self.uuidTextField setEnabled:NO];
+        [self.majorValueTextField setEnabled:NO];
+        [self.minorValueTextField setEnabled:NO];
+        [self.measuredPowerTextField setEnabled:NO];
+
+        [advertisingButton setTitle:@"stop advertising"];
     }
+}
+
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor{
+    
+    
+    return YES;
 }
 
 @end
