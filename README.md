@@ -3,7 +3,14 @@ Mavericks as an iBeacon
 
 Use a Bluetooth 4 enabled Mac running Mavericks as an iBeacon.
 
-See http://www.blendedcocoa.com/blog/2013/11/02/mavericks-as-an-ibeacon/
+See http://www.blendedcocoa.com/blog/2013/11/02/mavericks-as-an-ibeacon/ for more details.
+
+Contributors
+===
+
+Original Mavericks iBeacon support by Matthew Robinson (matt@zensunni.org).
+
+User Interface provided by Falko Richter (falko at briefhansa dot de).
 
 License
 ===
