@@ -103,7 +103,7 @@
         [self.minorValueTextField setEnabled:NO];
         [self.measuredPowerTextField setEnabled:NO];
 
-        [advertisingButton setTitle:@"stop advertising"];
+        [advertisingButton setTitle:@"Stop Broadcasting"];
     }
 }
 
