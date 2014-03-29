@@ -35,6 +35,8 @@
 //  Created by Matthew Robinson on 1/11/2013.
 //
 
+static NSString *kBLCUserDefaultsUDID = @"kBLCUserDefaultsUDID";
+
 #import "BLCAppDelegate.h"
 
 #import <IOBluetooth/IOBluetooth.h>
@@ -62,6 +64,13 @@
     _manager = [[CBPeripheralManager alloc] initWithDelegate:self
                                                        queue:nil];
     [self.startbutton setEnabled:NO];
+    
+    NSString *str = [[NSUserDefaults standardUserDefaults] stringForKey:kBLCUserDefaultsUDID];
+    if ( str ) {
+        [self.uuidTextField setStringValue:str];
+    }
+    
+    
 }
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
@@ -90,6 +99,9 @@
         [self.measuredPowerTextField setEnabled:YES];
     } else {
         NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[self.uuidTextField stringValue]];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[self.uuidTextField stringValue] forKey:kBLCUserDefaultsUDID];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         BLCBeaconAdvertisementData *beaconData = [[BLCBeaconAdvertisementData alloc] initWithProximityUUID:proximityUUID
                                                                                                      major:self.majorValueTextField.integerValue
