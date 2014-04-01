@@ -3,12 +3,9 @@ Pod::Spec.new do |s|
   s.version      = "0.0.1"
   s.summary      = "Use a Bluetooth 4 enabled Mac running Mavericks as an iBeacon."
   s.description  = <<-DESC
-                   A longer description of BeaconOSX in Markdown format.
+                   Use a Bluetooth 4 enabled Mac running Mavericks as an iBeacon.
 
-                   * Think: Why did you write this? What is the focus? What does it do?
-                   * CocoaPods will be using this to generate tags, and improve search results.
-                   * Try to keep it short, snappy and to the point.
-                   * Finally, don't worry about the indent, CocoaPods strips it!
+                   See http://www.blendedcocoa.com/blog/2013/11/02/mavericks-as-an-ibeacon/ for more details.
                    DESC
 
   s.homepage     = "https://github.com/mttrb/BeaconOSX"
