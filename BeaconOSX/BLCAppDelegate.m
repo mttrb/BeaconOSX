@@ -36,6 +36,9 @@
 //
 
 static NSString *kBLCUserDefaultsUDID = @"kBLCUserDefaultsUDID";
+static NSString *kBLCUserDefaultsMajor = @"kBLCUserDefaultsMajor";
+static NSString *kBLCUserDefaultsMinor = @"kBLCUserDefaultsMinor";
+static NSString *kBLCUserDefaultsMeasuredPower = @"kBLCUserDefaultsMeasuredPower";
 
 #import "BLCAppDelegate.h"
 
@@ -65,12 +68,29 @@ static NSString *kBLCUserDefaultsUDID = @"kBLCUserDefaultsUDID";
                                                        queue:nil];
     [self.startbutton setEnabled:NO];
     
-    NSString *str = [[NSUserDefaults standardUserDefaults] stringForKey:kBLCUserDefaultsUDID];
-    if ( str ) {
-        [self.uuidTextField setStringValue:str];
+    [self loadLastUsedData];
+}
+
+- (void)loadLastUsedData {
+    NSString *udid = [[NSUserDefaults standardUserDefaults] stringForKey:kBLCUserDefaultsUDID];
+    if (udid) {
+        [self.uuidTextField setStringValue:udid];
     }
     
+    NSString *major = [[NSUserDefaults standardUserDefaults] stringForKey:kBLCUserDefaultsMajor];
+    if (major) {
+        [self.majorValueTextField setStringValue:major];
+    }
     
+    NSString *minor = [[NSUserDefaults standardUserDefaults] stringForKey:kBLCUserDefaultsMinor];
+    if (minor) {
+        [self.minorValueTextField setStringValue:minor];
+    }
+    
+    NSString *measuredPower = [[NSUserDefaults standardUserDefaults] stringForKey:kBLCUserDefaultsMeasuredPower];
+    if (measuredPower) {
+        [self.measuredPowerTextField setStringValue:measuredPower];
+    }
 }
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
@@ -101,6 +121,9 @@ static NSString *kBLCUserDefaultsUDID = @"kBLCUserDefaultsUDID";
         NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:[self.uuidTextField stringValue]];
         
         [[NSUserDefaults standardUserDefaults] setObject:[self.uuidTextField stringValue] forKey:kBLCUserDefaultsUDID];
+        [[NSUserDefaults standardUserDefaults] setObject:[self.majorValueTextField stringValue] forKey:kBLCUserDefaultsMajor];
+        [[NSUserDefaults standardUserDefaults] setObject:[self.minorValueTextField stringValue] forKey:kBLCUserDefaultsMinor];
+        [[NSUserDefaults standardUserDefaults] setObject:[self.measuredPowerTextField stringValue] forKey:kBLCUserDefaultsMeasuredPower];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         BLCBeaconAdvertisementData *beaconData = [[BLCBeaconAdvertisementData alloc] initWithProximityUUID:proximityUUID
