@@ -68,6 +68,17 @@ static NSString *kBLCUserDefaultsMeasuredPower = @"kBLCUserDefaultsMeasuredPower
                                                        queue:nil];
     [self.startbutton setEnabled:NO];
     
+	if ([[NSProcessInfo processInfo] respondsToSelector:@selector(operatingSystemVersion)]){
+        NSInteger major =  [[NSProcessInfo processInfo] operatingSystemVersion].majorVersion;
+        NSInteger minor =  [[NSProcessInfo processInfo] operatingSystemVersion].minorVersion;
+        if (major == 10 && minor == 10) {
+            NSAlert* alert = [NSAlert alertWithMessageText:@"Unsupported OS" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"You are running a version of OSX that does not support the iBeacon feature."];
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                exit(-1);
+            }];
+        }
+    }
+
     [self loadLastUsedData];
 }
 
