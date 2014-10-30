@@ -5,6 +5,8 @@ Use a Bluetooth 4 enabled Mac running Mavericks as an iBeacon.
 
 See http://www.blendedcocoa.com/blog/2013/11/02/mavericks-as-an-ibeacon/ for more details.
 
+**Note**: It looks like Apple have closed this loophole in Yosemite.
+
 Contributors
 ===
 
