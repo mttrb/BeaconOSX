@@ -131,7 +131,7 @@ static NSString *kBLCUserDefaultsMeasuredPower = @"kBLCUserDefaultsMeasuredPower
 - (IBAction)startButtonTapped:(NSButton*)advertisingButton{
     if (_manager.isAdvertising) {
         [_manager stopAdvertising];
-        [advertisingButton setTitle:@"startAdvertising"];
+        [advertisingButton setTitle:@"Start Broadcasting iBeacon"];
         [self.uuidTextField setEnabled:YES];
         [self.majorValueTextField setEnabled:YES];
         [self.minorValueTextField setEnabled:YES];
@@ -157,7 +157,7 @@ static NSString *kBLCUserDefaultsMeasuredPower = @"kBLCUserDefaultsMeasuredPower
         [self.minorValueTextField setEnabled:NO];
         [self.measuredPowerTextField setEnabled:NO];
 
-        [advertisingButton setTitle:@"Stop Broadcasting"];
+        [advertisingButton setTitle:@"Stop Broadcasting iBeacon"];
     }
 }
 
