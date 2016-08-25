@@ -71,12 +71,12 @@ static NSString *kBLCUserDefaultsMeasuredPower = @"kBLCUserDefaultsMeasuredPower
     NSInteger major = [[version objectAtIndex:0] integerValue];
     NSInteger minor = [[version objectAtIndex:1] integerValue];
         
-    if (major == 10 && minor != 9) {
+    if (major == 10 && minor < 9) {
         NSAlert* alert = [NSAlert alertWithMessageText:@"Unsupported OS"
                                          defaultButton:@"OK"
                                        alternateButton:nil
                                            otherButton:nil
-                             informativeTextWithFormat:@"BeaconOSX requires OS X Mavericks!!!\n\nBeaconOSX does NOT work with versions of OS X before or after Mavericks, e.g. Yosemite"];
+                             informativeTextWithFormat:@"BeaconOSX requires OS X Mavericks!!!\n\nBeaconOSX does NOT work with versions of OS X before Mavericks"];
         
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
             exit(-1);
