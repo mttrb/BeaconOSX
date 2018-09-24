@@ -404,8 +404,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeaconOSX/BeaconOSX-Prefix.pch";
 				INFOPLIST_FILE = "BeaconOSX/BeaconOSX-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.9;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -418,8 +419,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeaconOSX/BeaconOSX-Prefix.pch";
 				INFOPLIST_FILE = "BeaconOSX/BeaconOSX-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.9;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
